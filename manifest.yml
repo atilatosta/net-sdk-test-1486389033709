@@ -1,0 +1,8 @@
+applications:
+- path: .
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  name: net-sdk-test
+  host: net-sdk-test
+  disk_quota: 1024M
