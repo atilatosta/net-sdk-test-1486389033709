@@ -27,42 +27,27 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
     {
-        loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-        loggerFactory.AddDebug();
-
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-            app.UseBrowserLink();
-        }
-        else
-        {
-            app.UseExceptionHandler("/Home/Error");
-        }
-
+        loggerFactory.AddConsole();
+        app.UseDeveloperExceptionPage();
         app.UseStaticFiles();
-
         app.UseMvc(routes =>
         {
             routes.MapRoute(
                 name: "default",
-                template: "{controller=Home}/{action=Index}/{id?}");
+                template: "{controller=home}/{action=index}");
         });
     }
 
     public static void Main(string[] args)
     {
         var config = new ConfigurationBuilder()
-            .AddCommandLine(args)
-            .Build();
+                .AddCommandLine(args)
+                .Build();
 
         var host = new WebHostBuilder()
-                    .UseKestrel()
-                    .UseContentRoot(Directory.GetCurrentDirectory())
-                    .UseConfiguration(config)
-                    .UseIISIntegration()
-                    .UseStartup<Startup>()
-                    .Build();
-        host.Run();
+            .UseKestrel()
+            .UseConfiguration(config)
+            .UseStartup<Startup>()
+            .Build();
     }
 }
