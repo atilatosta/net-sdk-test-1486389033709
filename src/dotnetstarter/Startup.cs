@@ -61,6 +61,7 @@ public class Startup
                     .UseKestrel()
                     .UseContentRoot(Directory.GetCurrentDirectory())
                     .UseConfiguration(config)
+                    .UseIISIntegration()
                     .UseStartup<Startup>()
                     .Build();
         host.Run();
